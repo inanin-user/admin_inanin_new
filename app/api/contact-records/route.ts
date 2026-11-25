@@ -4,9 +4,7 @@ import { resolve } from "node:path";
 
 const CSV_PATH = resolve(
   process.cwd(),
-  "..",
-  "private_contact_data",
-  "contact_submissions.csv"
+  "../private_contact_data/contact_submissions.csv"
 );
 
 interface ContactRecord {

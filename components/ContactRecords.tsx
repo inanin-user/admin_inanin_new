@@ -89,9 +89,9 @@ export default function ContactRecords() {
         setError("");
 
         const response = await fetch(withBasePath("/api/contact-records"), {
+          method: "GET",
           cache: "no-store",
         });
-
         const result = await response.json();
 
         if (!response.ok || !result.success) {

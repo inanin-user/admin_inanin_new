@@ -1,6 +1,7 @@
 
 import { redirect } from "next/navigation";
+import ContactRecordsPage from "./contact-records/page";
 
 export default function HomePage() {
-  redirect("/contact-records");
+  return <ContactRecordsPage />;
 }
