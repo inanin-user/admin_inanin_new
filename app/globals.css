@@ -67,7 +67,7 @@ body {
   align-items: stretch;
 }
 
-/* Left panel */
+/* Right panel */
 .contact-detail-panel {
   min-width: 0;
   border: 1px solid #e4ddd0;
@@ -180,7 +180,7 @@ body {
   text-align: center;
 }
 
-/* Right panel */
+/* Left panel */
 .contact-list-panel {
   display: flex;
   flex-direction: column;
@@ -253,22 +253,24 @@ body {
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;
-  max-height: 750px;
+  max-height: 525px;
   padding-right: 4px;
 }
 
 .contact-record-item {
   display: block;
   width: 100%;
-  border: 1px solid rgba(255,255,255,.08);
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   background: #1b3458;
-  padding: 16px;
-  color: white;
+  color: #fff;
   text-align: left;
+  line-height: 1.35;
   cursor: pointer;
-  transition: background .2s, border-color .2s;
+  transition: background 0.2s, border-color 0.2s;
 }
+
 
 .contact-record-item:hover {
   background: #29446b;
@@ -280,37 +282,50 @@ body {
 }
 
 .contact-record-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  padding-right: 40px;
 }
 
 .contact-record-top strong {
-  font-size: 15px;
+  display: block;
+  font-size: 18px;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
-.contact-record-top span {
-  color: #c9a86a;
-  font-size: 10px;
-  white-space: nowrap;
+/* Phone (left) + date (right) share one line */
+.contact-record-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 10px;
 }
 
 .contact-record-phone {
-  margin-top: 8px;
-  color: #d5dce8;
-  font-size: 13px;
+  color: #e3e8f1;
+  font-size: 16px;
+  letter-spacing: 0.01em;
 }
 
-.contact-record-bottom {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 6px 12px;
-  margin-top: 10px;
+.contact-record-date {
   color: #c9a86a;
-  font-size: 11px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Email — full width, wraps if very long */
+.contact-record-bottom {
+  margin-top: 8px;
+  color: #c9a86a;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .contact-record-item {
+    padding: 16px;
+  }
 }
 
 .contact-list-message {
@@ -397,4 +412,121 @@ body {
 
 .contact-confirm-button:hover {
   background: #1e7a4f;
+}
+
+/* Layout: list on the left, details on the right.
+   Adjust the column sizes to match your existing design. */
+.contact-admin-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 2fr) 3fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Header: count + export button */
+.contact-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-export-button {
+  padding: 8px 14px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.contact-export-button:hover {
+  background: #f3f4f6;
+}
+
+/* Record row + delete button (top-right corner) */
+.contact-record-row {
+  position: relative;
+}
+.contact-record-row .contact-record-item {
+  width: 100%;
+  padding-right: 48px; /* keep text clear of the delete button */
+}
+
+.contact-delete-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  background: #fff;       /* default: white */
+  color: #dc2626;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.contact-delete-button:hover,
+.contact-delete-button:focus-visible {
+  background: #dc2626;    /* cover (hover): red */
+  border-color: #dc2626;
+  color: #fff;
+}
+
+/* Popup */
+.contact-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.45);
+}
+.contact-modal {
+  width: min(400px, 100%);
+  padding: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+.contact-modal h3 {
+  margin: 0 0 8px;
+}
+.contact-modal p {
+  margin: 0 0 20px;
+  color: #4b5563;
+}
+.contact-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.contact-modal-cancel,
+.contact-modal-danger {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+.contact-modal-cancel {
+  border: 1px solid #d1d5db;
+  background: #fff;
+}
+.contact-modal-danger {
+  border: 1px solid #dc2626;
+  background: #dc2626;
+  color: #fff;
+}
+
+/* Mobile: stack list first, then details */
+@media (max-width: 768px) {
+  .contact-admin-layout {
+    grid-template-columns: 1fr;
+  }
+  .contact-list-panel,
+  .contact-detail-panel {
+    scroll-margin-top: 12px;
+  }
 }

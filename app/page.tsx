@@ -1,7 +1,16 @@
+"use client";
+import { withBasePath } from "@/lib/basePath";
+import { LoginPage } from "@userin/auth-kit";
 
-import { redirect } from "next/navigation";
-import ContactRecordsPage from "./contact-records/page";
 
 export default function HomePage() {
-  return <ContactRecordsPage />;
+  return (
+    <LoginPage
+      apiUrl={withBasePath("/api/auth/login")}
+      initialRedirectUrl={"/contact-records"}
+      onSuccess={(user) => {
+        console.log("Auth kit login succeeded:", user.username);
+      }}
+    />
+  );
 }
